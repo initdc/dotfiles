@@ -1,0 +1,30 @@
+# http proxy code block
+# https://about.gitlab.com/blog/2021/01/27/we-need-to-talk-no-proxy/
+HTTP="http://127.0.0.1:1088"
+SOCKS5="socks5://127.0.0.1:1087"
+
+unproxy() {
+    unset http_proxy HTTP_PROXY https_proxy HTTPS_PROXY all_proxy ALL_PROXY ftp_proxy FTP_PROXY dns_proxy DNS_PROXY
+    echo "clear proxy done"
+}
+
+setproxy() {
+    if [ $# -eq 0 ]; then
+        URL=$HTTP
+    else
+        URL="$@"
+    fi
+    http_proxy=$URL
+    HTTP_PROXY=$URL
+    https_proxy=$URL
+    HTTPS_PROXY=$URL
+    all_proxy=$URL
+    ALL_PROXY=$URL
+    ftp_proxy=$URL
+    FTP_PROXY=$URL
+    dns_proxy=$URL
+    DNS_PROXY=$URL
+    no_proxy="localhost,127.0.0.1,.local,.internal"
+    echo "current proxy is ${http_proxy}"
+    export no_proxy http_proxy HTTP_PROXY https_proxy HTTPS_PROXY all_proxy ALL_PROXY ftp_proxy FTP_PROXY dns_proxy DNS_PROXY
+}
