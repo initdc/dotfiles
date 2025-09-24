@@ -48,14 +48,14 @@ download_files_mirror() {
 }
 
 clone_files() {
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/clone_temp/zsh-autosuggestions
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/clone_temp/zsh-syntax-highlighting
+    git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/clone_temp/zsh-autosuggestions
+    git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/clone_temp/zsh-syntax-highlighting
 
 }
 
 clone_files_mirror() {
-    git clone https://gh-rep.m02.link/zsh-users/zsh-autosuggestions.git ~/.zsh/clone_temp/zsh-autosuggestions
-    git clone https://gh-rep.m02.link/zsh-users/zsh-syntax-highlighting.git ~/.zsh/clone_temp/zsh-syntax-highlighting
+    git clone --depth 1 https://gh-rep.m02.link/zsh-users/zsh-autosuggestions.git ~/.zsh/clone_temp/zsh-autosuggestions
+    git clone --depth 1 https://gh-rep.m02.link/zsh-users/zsh-syntax-highlighting.git ~/.zsh/clone_temp/zsh-syntax-highlighting
 
 }
 
