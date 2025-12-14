@@ -44,26 +44,23 @@ download_files() {
 }
 
 download_files_mirror() {
-    wget -cqP ~/.zsh/download_temp 'https://gh-rep.m02.link/ohmyzsh/ohmyzsh/raw/master/plugins/git/git.plugin.zsh'
+    wget -cqP ~/.zsh/download_temp 'https://ghb.moz.qzz.io/ohmyzsh/ohmyzsh/raw/master/plugins/git/git.plugin.zsh'
 }
 
 clone_files() {
     git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh/clone_temp/zsh-autosuggestions
     git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh/clone_temp/zsh-syntax-highlighting
-
 }
 
 clone_files_mirror() {
-    git clone --depth 1 https://gh-rep.m02.link/zsh-users/zsh-autosuggestions.git ~/.zsh/clone_temp/zsh-autosuggestions
-    git clone --depth 1 https://gh-rep.m02.link/zsh-users/zsh-syntax-highlighting.git ~/.zsh/clone_temp/zsh-syntax-highlighting
-
+    git clone --depth 1 https://ghb.moz.qzz.io/zsh-users/zsh-autosuggestions.git ~/.zsh/clone_temp/zsh-autosuggestions
+    git clone --depth 1 https://ghb.moz.qzz.io/zsh-users/zsh-syntax-highlighting.git ~/.zsh/clone_temp/zsh-syntax-highlighting
 }
 
 update_plugins() {
-    if [[ "${MIRR}" != "0" ]]; then
+    if [[ "${MIRR}" == "1" ]]; then
         clone_files_mirror
         download_files_mirror
-
     else
         clone_files
         download_files
@@ -102,3 +99,20 @@ PROMPT='%F{green}%n%f > %B%F{cyan}%~ %f${vcs_info_msg_0_}%b'
 RPROMPT='%B%F{green}%?%f%b%F{208} <<%f%F{240}%*%f'
 
 source ~/.proxy
+
+alias cr='crystal'
+alias crr='crystal run'
+alias crf='crystal tool format'
+
+alias shd="shards"
+alias shdi="shards install"
+alias shdu="shards update"
+alias shdr="shards run"
+
+alias sts="sudo systemctl status"
+alias sta="sudo systemctl start"
+alias sre="sudo systemctl restart"
+alias sto="sudo systemctl stop"
+alias sen="sudo systemctl enable"
+alias sdi="sudo systemctl disable"
+alias slo="sudo systemctl daemon-reload"
