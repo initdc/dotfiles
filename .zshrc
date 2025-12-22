@@ -116,3 +116,29 @@ alias sto="sudo systemctl stop"
 alias sen="sudo systemctl enable"
 alias sdi="sudo systemctl disable"
 alias slo="sudo systemctl daemon-reload"
+
+MYPATH=(
+$HOME/bin
+$HOME/go/bin
+$HOME/bin/truffleruby-25.0.0/bin
+$HOME/bin/travis/ruby-3.4.7/bin
+$HOME/bin/zig-x86_64-linux-0.15.2
+$HOME/bin/zig-x86_64-linux-0.16.0-dev.747+493ad58ff
+$HOME/bin/nu-0.108.0-x86_64-unknown-linux-gnu
+$HOME/.local/share/pnpm
+/usr/local/go/bin
+)
+
+IFS=":"
+str=${MYPATH[*]}
+unset IFS
+
+case ":$PATH:" in
+  *":$str:"*) ;;
+  *) export PATH="$str:$PATH" ;;
+esac
+
+export GOPATH=$HOME/go
+export PNPM_HOME="$HOME/.local/share/pnpm"
+
+eval "$(fnm env --use-on-cd --shell zsh)"
