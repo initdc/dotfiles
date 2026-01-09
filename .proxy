@@ -9,10 +9,10 @@ unproxy() {
 }
 
 setproxy() {
-    if [ $# -eq 0 ]; then
+    if [[ $# = 0 ]]; then
         URL=$HTTP
     else
-        URL="$@"
+        URL=$*
     fi
     http_proxy=$URL
     HTTP_PROXY=$URL

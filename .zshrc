@@ -20,8 +20,12 @@ add-zsh-hook precmd vcs_info
 setopt prompt_subst
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+if [[ -x /usr/bin/dircolors ]]; then
+    if [[ -r ~/.dircolors ]]; then
+        eval "$(dircolors -b ~/.dircolors)"
+    else
+        eval "$(dircolors -b)"
+    fi
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
@@ -40,11 +44,11 @@ alias la='ls -A'
 alias l='ls -CF'
 
 download_files() {
-    wget -cqP ~/.zsh/download_temp 'https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/git/git.plugin.zsh'
+    curl --location --silent --show-error --continue-at - --output ~/.zsh/download_temp/git.plugin.zsh 'https://github.com/ohmyzsh/ohmyzsh/raw/master/plugins/git/git.plugin.zsh'
 }
 
 download_files_mirror() {
-    wget -cqP ~/.zsh/download_temp 'https://ghb.moz.qzz.io/ohmyzsh/ohmyzsh/raw/master/plugins/git/git.plugin.zsh'
+    curl -LsSC - -o ~/.zsh/download_temp/git.plugin.zsh 'https://ghb.moz.qzz.io/ohmyzsh/ohmyzsh/raw/master/plugins/git/git.plugin.zsh'
 }
 
 clone_files() {
@@ -58,7 +62,7 @@ clone_files_mirror() {
 }
 
 update_plugins() {
-    if [[ "${MIRR}" == "1" ]]; then
+    if [[ $MIRR == "1" ]]; then
         clone_files_mirror
         download_files_mirror
     else
@@ -88,7 +92,7 @@ init() {
     load_plugins
 }
 
-if [ -f ~/.zsh/git.plugin.zsh ]; then
+if [[ -r ~/.zsh/git.plugin.zsh ]]; then
     load_plugins
 else
     init
@@ -141,4 +145,6 @@ esac
 export GOPATH=$HOME/go
 export PNPM_HOME="$HOME/.local/share/pnpm"
 
-eval "$(fnm env --use-on-cd --shell zsh)"
+if command -v fnm 1> /dev/null; then
+    eval "$(fnm env --use-on-cd --shell zsh)"
+fi
